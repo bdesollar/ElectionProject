@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+<title>{% block title %}Profile{% endblock %}</title>
+
+{% block content %}
+<h1 class="text-center pb-5 pt-5">Polling Station Ballots</h1>
+<div class="container my-3 pb-5 pt-5">
+        <table>
+            <caption>Ballots</caption>
+            <thead>
+                <tr class="text-secondary">
+                    <th id="name">Name</th>
+                    <th id="location">Electoral Constituency</th>
+                    <th id="zipcode">Date</th>
+                    <th id="status">Status</th>
+                    <th id="actions">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for election in elections %}
+                <tr>
+                    <td>{{ election.name }}</td>
+                    <td>{{ election.electoral_constituency }}</td>
+                    <td>{{ election.election_date }}</td>
+                    {% if election.active and not election.complete %}
+                        <td>Active </td>
+                    {% elif not election.active and not election.complete %}
+                        <td> Not Active </td>
+                    {% elif election.complete %}
+                        <td> Election Ended </td>
+                    {% else %}
+                        <td> Not Active </td>
+                    {% endif %}
+                    <td>
+                        <a href="{{ url_for('managers_activate_ballot', id=election.election_id) }}" class="btn btn-primary mx-4">Activate ballot</a>
+                        <a href="{{ url_for('managers_deactivate_ballot', id=election.election_id) }}" class="btn btn-primary mx-4">Deactivate ballot</a>
+                        <a href="{{ url_for('managers_end_election', id=election.election_id) }}" class="btn btn-primary mx-4">Declare Result</a>
+                    </td>
+                </tr>
+            </tbody>
+            {% endfor %}
+        </table>
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+              <div class="text-danger">
+                  {{ messages[0] }}
+              </div>
+            {% endif %}
+        {% endwith %}
+</div>
+{% endblock %}

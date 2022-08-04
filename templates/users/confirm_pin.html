@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+<title>{% block title %}Enter Code{% endblock %}</title>
+
+{% block content %}
+  <h3 class="text-center">Enter Code Sent By Email</h3>
+  <div class="container"><br>
+    <div class="row align-items-center justify-content-center">
+      <div class="col-md-4">
+        <form action="" method="post" role="form">
+          {{ form.csrf }}
+          <div class="form-group">
+             <label for="code">{{ form.code.label }}</label>
+            {{ form.code(placeholder="Code" , type="text" , class="form-control" , id="code") }}
+
+          <br>
+          <div class="text-center">
+            <p>
+              {{ form.submit(type="submit", class="btn btn-primary") }}
+            </p>
+          </div>
+        </form>
+        <br>
+      </div>
+    </div>
+  </div>
+{% endblock %}

@@ -1,0 +1,65 @@
+    <nav class="navbar navbar-expand-lg bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" style="text-shadow: 6px 6px 7px gray;color:darkblue; font-size: 25px" href="/">US Election</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link text-light mx-3" href="/">Home<span class="sr-only">(current)</span></a>
+                    </li>
+                </ul>
+                <div class="form-inline my-2 my-lg-0 text-light">
+                    {% if current_user.is_authenticated %}
+                        {% if current_user.login_type == 'admin' %}
+                            <ul class="navbar-nav mr-auto">
+                                <li class="nav-item active">
+                                    <a class="nav-link text-light mx-3" href="{{ url_for('manage_poll_managers') }}">Manage Poll Managers</a>
+                                </li>
+                                <li class="nav-item active">
+                                    <a class="nav-link text-light mx-3" href="{{ url_for('admin_manage_and_search_voters') }}">Manage Voters</a>
+                                </li>
+                                <li class="nav-item active">
+                                    <a class="nav-link text-light mx-3" href="{{ url_for('setup_election') }}">Setup Election</a>
+                                </li>
+                                <li class="nav-item active">
+                                    <a class="nav-link text-light mx-3" href="{{ url_for('admin_manage_and_view_elections') }}">View Elections</a>
+                                </li>
+                            </ul>
+                            {% elif current_user.login_type == 'voter' %}
+                           <ul class="navbar-nav mr-auto">
+                               <li class="nav-item active">
+                                    <a class="nav-link text-light mx-3" href="{{ url_for('admin_manage_and_view_elections') }}">View Elections</a>
+                                </li>
+                            </ul>
+                             {% else %}
+                             {% if current_user.authorized %}
+                            <ul class="navbar-nav mr-auto">
+                                <li class="nav-item active">
+                                    <a class="nav-link text-light mx-3" href="{{ url_for('display_polling_station_elections') }}">View Polling Station Ballots</a>
+                                </li>
+                             </ul>
+                             {% endif %}
+                        {% endif %}
+                        <a class="text-light mx-3">
+                            Hello, {{ current_user.name }}!
+                        </a>
+                        {% if current_user.login_type == 'admin' or current_user.login_type == 'poll manager' or current_user.login_type == 'voter' and current_user.approved %}
+                        <a class="text-light mx-3" href="{{ url_for('profile') }}">
+                            Profile
+                        </a>
+                        {% endif %}
+                        <a class="btn btn-outline-primary mx-3 my-2 my-sm-0" href="{{ url_for('logout') }}">Log out</a>
+                    {% else %}
+                        <a class="btn btn-outline-primary mx-3 my-2 my-sm-0" href="{{ url_for('registration') }}">Register</a>
+                        <a class="tex-light nav-item mx-3">
+                            Already have an account?
+                        </a>
+                        <a class="btn btn-outline-primary mx-3 my-2 my-sm-0" href="{{ url_for('login') }}">Log in</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </nav>

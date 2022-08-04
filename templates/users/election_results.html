@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+<title>{% block title %}View Election{% endblock %}</title>
+
+{% block content %}
+<h1 class="text-center pb-5 pt-5">Election Results</h1>
+<div class="container my-3 pb-5 pt-20">
+    <div class="row align-items-center justify-content-center">
+      <div class="col-md-4">
+        <form action="" method="post" role="form">
+          {{ form.csrf }}
+          <div class="form-group">
+            <label for="text">Election Name: </label>
+            <label for="{{ election.name }}">{{ election.name }}</label>
+            <br>
+            <label for="text">Electoral Constituency: </label>
+            <label for="{{ election.electoral_constituency }}">{{ election.electoral_constituency }}</label>
+            <br>
+            <label for="text">Electoral Date: </label>
+            <label for="{{ election.election_date }}">{{ election.election_date }}</label>
+            <br>
+            <br>
+            {% for race, candidate_winners in race_winners.items() %}
+              <label for="{{ race.name }}">Race: {{ race.name }} </label>
+              <br>
+              {% if "," in candidate_winners %}
+                <label for="{{ candidate_winners }}">Race was a tie between: {{ candidate_winners }}</label>
+              {% else %}
+                <label for="{{ candidate_winners }}">Winner: {{ candidate_winners }}</label>
+              {% endif %}
+              <br>
+              <br>
+            {% endfor %}
+          </div>
+          <div class="text-center">
+            <p>
+              {{ form.return_to_elections(type="submit", class="btn btn-primary")}}
+            </p>
+          </div>
+        </form>
+        <br>
+      </div>
+    </div>
+</div>
+{% endblock %}

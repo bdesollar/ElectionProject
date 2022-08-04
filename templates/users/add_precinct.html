@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+
+<title>{% block title %}Add Precinct{% endblock %}</title>
+
+{% block content %}
+<div class="container my-3 pb-5 pt-5">
+  <div class=container"><br>
+    <div class="row align-items-center justify-content-center">
+      <div class="col-md-4">
+        <form action="" method="post" role="form">
+          {{ form.csrf }}
+          <div class="form-group">
+            <label for="polling_manager_email">{{ form.polling_manager_email.label }}</label>
+            {{ form.polling_manager_email(placeholder="Polling Manager Email" , type="text" , class="form-control" , id="polling_manager_email") }}
+            <br>
+            <div>
+              {% for error in form.polling_manager_email.errors %}
+              <p>{{ error }}</p>
+              {% endfor %}
+            </div>
+            <label for="text">Register Polling Manager if Needed</label>
+            <br>
+            <a class="btn btn-outline-primary mx-3 my-2 my-sm-0" href="{{ url_for('poll_manager_registration') }}">Register Polling Manager</a>
+            <br>
+            <label for="Precinct">{{ form.precinct.label }}</label>
+            {{ form.precinct(placeholder="Precinct" , type="text" , class="form-control" , id="precinct") }}
+            <br>
+            <div>
+              {% for error in form.precinct.errors %}
+              <p>{{ error }}</p>
+              {% endfor %}
+            </div>
+            <label for="zipcode">{{ form.zipcode.label }}</label>
+            {{ form.zipcode(placeholder="Zipcode" , type="integer" , class="form-control" , id="zipcode") }}
+            <br>
+            <div>
+              {% for error in form.zipcode.errors %}
+              <p>{{ error }}</p>
+              {% endfor %}
+            </div>
+            <label for="location">{{ form.location.label }}</label>
+            {{ form.location(placeholder="Voting Location Address" , type="text" , class="form-control" , id="location") }}
+            <br>
+            <div>
+              {% for error in form.location.errors %}
+              <p>{{ error }}</p>
+              {% endfor %}
+            </div>
+            <label for="state_office_email">{{ form.state_office_email.label }}</label>
+            {{ form.state_office_email(placeholder="State Office Email" , type="text" , class="form-control" , id="state_office_email") }}
+            <br>
+            <div>
+              {% for error in form.state_office_email.errors %}
+              <p>{{ error }}</p>
+              {% endfor %}
+            </div>
+          </div>
+          <br>
+          <div class="text-center">
+            <p>
+              {{ form.submit(type="submit", class="btn btn-primary")}}
+            </p>
+          </div>
+           {% with messages = get_flashed_messages() %}
+              {% if messages %}
+                <div class="text-danger">
+                  {{ messages[0] }}
+                </div>
+              {% endif %}
+          {% endwith %}
+        </form>
+        <br>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

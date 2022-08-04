@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+<title>{% block title %}Manage{% endblock %}</title>
+
+{% block content %}
+<h1 class="text-center pb-5 pt-5">Elections</h1>
+<div class="container my-3 pb-5 pt-5">
+    {% with messages = get_flashed_messages() %}
+          {% if messages %}
+              <div class="text-danger">
+                  {{ messages[0] }}
+              </div>
+          {% endif %}
+      {% endwith %}
+    <form action="" method="post" role="form" class="form-inline .form-control-sm my-lg-0 ml-auto">
+      {{ form.key(placeholder="Search for Elections by name" , type="text" , class="form-control col-lg-6" , id="election") }}
+        {{ form.submit(type="submit", class="btn btn-outline-primary my-2 my-sm-0") }}
+    </form>
+    <div class="container my-3 pb-5 pt-5">
+        <table>
+            <thead>
+                <tr class="text-secondary">
+                    <th id="name">Name</th>
+                    <th id="electoral_constituency">Electoral Constituency</th>
+                    <th id="election_date">Election Date</th>
+                    <th id="actions">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for election in elections %}
+                <tr>
+                    <td>{{ election.name }}</td>
+                    <td>{{ election.electoral_constituency }}</td>
+                    <td>{{ election.election_date }}</td>
+                    {% if current_user.login_type == 'admin' %}
+                        <td><a href="{{ url_for('display_election' , id=election.election_id) }}" class="btn btn-primary mx-4">View</a></td>
+                    {% else %}
+                        {% if (election.election_id in elections_voted_for) and not election.complete %}
+                            <td><a href="{{ url_for('display_election_summary' , id=election.election_id) }}" class="btn btn-primary mx-4">View Summary</a></td>
+                        {% elif (election.election_id not in elections_voted_for) and not election.complete %}
+                            <td><a href="{{ url_for('ballot' , id=election.election_id) }}" class="btn btn-primary mx-4">Vote</a></td>
+                        {% elif election.complete %}
+                            <td><a href="{{ url_for('display_election_result' , id=election.election_id) }}" class="btn btn-primary mx-4">View Election Results</a></td>
+                        {% endif %}
+                    {% endif %}
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

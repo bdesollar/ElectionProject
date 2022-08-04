@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+<title>{% block title %}Home{% endblock %}</title>
+
+{% block content %}
+<div class="container py-5 text-center">
+    <div class="py-5">
+        <div class="py-5">
+            <h1 class="class py-5">Registration</h1>
+            <h3 class="py-5">Choose your role to get started</h3>
+            <div class="mx-5">
+                <div class="mx-5">
+                    <div class="mx-5">
+                        <div class="mx-5">
+                            <div class="mx-5">
+                                <div class="mx-5">
+                                    <div class="mx-5">
+                                        <div class="mx-5">
+                                            <div class="mx-4">
+                                                <ul class="navbar-nav">
+                                <li class="nav-item dropdown">
+                                    <h5 class="nav-link dropdown-toggle mx-3 text-primary" href="#" id="navbarDropdown"
+                                       role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        Role
+                                    </h5>
+                                    <div class="dropdown-menu mx-5" aria-labelledby="navbarDropdown">
+                                        <a class="dropdown-item" href="{{ url_for('admin_registration') }}">Administrator</a>
+                                        <div class="dropdown-divider"></div>
+                                        <a class="dropdown-item" href="{{ url_for('voter_registration') }}">Voter</a>
+                                    </div>
+                                </li>
+                            </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

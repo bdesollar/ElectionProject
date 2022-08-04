@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+<title>{% block title %}Election Summary{% endblock %}</title>
+
+{% block content %}
+<h1 class="text-center pb-5 pt-5">{{ election.name }} Summary</h1>
+<div class="container my-3 pb-5 pt-20">
+    <div class="row align-items-center justify-content-center">
+      <div class="col-md-4">
+        <form action="" method="post" role="form">
+          {{ form.csrf }}
+          <div class="form-group">
+            {% set count = namespace(value=0) %}
+            {% for race in races %}
+              <label for="{{ race.name }}">In Race Name: {{ race.name }}</label>
+              <br>
+              <label for="candidates_voted_for[count.value]">You Voted For: {{ candidates_voted_for[count.value].full_name }}</label>
+              {% set count.value = count.value + 1 %}
+              <br>
+              <br>
+            {% endfor %}
+            <div class="text-center">
+                <p>
+                {{ form.return_to_elections(type="submit", class="btn btn-primary")}}
+                </p>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+</div>
+{% endblock %}

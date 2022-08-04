@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+
+<title>{% block title %}Administrator Add Election{% endblock %}</title>
+
+{% block content %}
+<h1 class="text-center pb-5 pt-5">Add Election</h1>
+<div class="container my-3 pb-5 pt-5">
+  <div class=container><br>
+    <div class="row align-items-center justify-content-center">
+      <div class="col-md-4">
+      {% with messages = get_flashed_messages() %}
+          {% if messages %}
+              <div class="text-danger">
+                  {{ messages[0] }}
+              </div>
+          {% endif %}
+      {% endwith %}
+        <form action="" method="post" role="form">
+          {{ form.csrf }}
+          <div class="form-group">
+            <label for="name">{{ form.name.label }}</label>
+            {{ form.name(placeholder="Election Name" , type="text" , class="form-control" , id="name") }}
+            <br>
+            <div>
+              {% for error in form.name.errors %}
+              <p>{{ error }}</p>
+              {% endfor %}
+            </div>
+            <label for="term">{{ form.party.label }}</label>
+            {{ form.party(type="term", class="form-control", id="term",placeholder="Polling Date") }}
+            <br>
+            <div>
+              {% for error in form.party.errors %}
+              <p>{{ error }}</p>
+              {% endfor %}
+            </div>
+            <label for="precinct">{{ form.precinct.label }}</label>
+            {{ form.precinct(type="precinct", class="form-control", id="precinct",
+            placeholder="Election Precincts") }}
+            <br>
+            <div>
+              {% for error in form.precinct.errors %}
+              <p>{{ error }}</p>
+              {% endfor %}
+            </div>
+          </div>
+          <br>
+          <div class="text-center">
+            <p>
+              {{ form.submit(type="submit", class="btn btn-primary")}}
+            </p>
+          </div>
+        </form>
+        <br>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

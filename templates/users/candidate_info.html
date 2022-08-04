@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+<title>{% block title %}Candidate Info{% endblock %}</title>
+
+{% block content %}
+<h1 class="text-center pb-5 pt-5">Candidate Info</h1>
+<div class="container my-3 pb-5 pt-20">
+    <div class="row align-items-center justify-content-center">
+      <div class="col-md-4">
+        <form action="" method="post" role="form">
+          {{ form.csrf }}
+          <div class="form-group">
+            <label for="{{ candidate.full_name }}">Name: {{ candidate.full_name }}</label>
+            <br>
+            <label for="{{ candidate.party }}">Party: {{ candidate.party }}</label>
+            <br>
+            <label for="{{ candidate.position }}">Position: {{ candidate.position }}</label>
+            <br>
+            <label for="{{ candidate.statement }}">Statement: {{ candidate.statement }}</label>
+            <div class="text-center">
+                <p>
+                {{ form.return_to_vote(type="submit", class="btn btn-primary")}}
+                </p>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+</div>
+{% endblock %}

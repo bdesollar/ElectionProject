@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+<title>{% block title %}Manage{% endblock %}</title>
+
+{% block content %}
+<h1 class="text-center pb-5 pt-5">Management</h1>
+<div class="container my-3 pb-5 pt-5">
+    <form action="" method="post" role="form" class="form-inline .form-control-sm my-lg-0 ml-auto">
+      {{ form.key(placeholder="Search for poll managers by name or precinct" , type="text" , class="form-control col-lg-6" , id="poll_manager") }}
+        {{ form.submit(type="submit", class="btn btn-outline-primary my-2 my-sm-0")}}
+    </form>
+    <div class="container my-3 pb-5 pt-5">
+        <table>
+            <caption>Poll Managers</caption>
+            <thead>
+                <tr class="text-secondary">
+                    <th id="name">Name</th>
+                    <th id="email">Assigned Precinct</th>
+                    <th id="access">Status</th>
+                    <th id="actions">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for manager in poll_managers %}
+                <tr>
+                    <td>{{ manager.name }}</td>
+                    {% if manager.precinct == '' %}
+                    <td>None</td>
+                    {% else %}
+                    <td>{{manager.precinct}}</td>
+                    {% endif %}
+                    {% if manager.authorized %}
+                    <td>Authorized</td>
+                    {% else %}
+                    <td>Unauthorized</td>
+                    {% endif %}
+                    <td>
+                        <a href="{{ url_for('assign_managers' , id=manager.id) }}" class="btn btn-primary mx-4">Provide Access</a>
+                        <a href="{{ url_for('unassign_managers' , id=manager.id) }}" class="btn btn-primary mx-4">Deny Access</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

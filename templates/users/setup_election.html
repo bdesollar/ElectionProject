@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+
+<title>{% block title %}Setup Election{% endblock %}</title>
+
+{% block content %}
+<div class="container my-3 pb-5 pt-5">
+  <div class=container"><br>
+    <div class="row align-items-center justify-content-center">
+      <div class="col-md-4">
+        <form action="" method="post" role="form">
+          {{ form.csrf }}
+          <div class="form-group">
+            <label for="title">{{ form.title.label }}</label>
+            {{ form.title(placeholder="Election Title", type="text" , class="form-control" , id="title") }}
+            <br>
+            <div>
+              {% for error in form.title.errors %}
+              <p>{{ error }}</p>
+              {% endfor %}
+            </div>
+            <label for="electoral_constituency">{{ form.electoral_constituency.label }}</label>
+            {{ form.electoral_constituency(placeholder="Electoral Constituency" , type="text" , class="form-control" , id="electoral_constituency") }}
+            <br>
+            <div>
+              {% for error in form.electoral_constituency.errors %}
+              <p>{{ error }}</p>
+              {% endfor %}
+            </div>
+            <label for="date">{{ form.date.label }}</label>
+            {{ form.date(placeholder="Election Date" , type="text" , class="form-control" , id="date") }}
+            <br>
+            <div>
+              {% for error in form.date.errors %}
+              <p>{{ error }}</p>
+              {% endfor %}
+            </div>
+            <p>
+              {{ form.submit_data(type="submit", class="btn btn-primary")}}
+            </p>
+            {% if election_data_added == true %}
+              <div class="text-left">
+              <a class="btn btn-primary" href="{{ url_for('add_precinct') }}">Add Precinct</a>
+              </div>
+              <br>
+              <div class="text-left">
+                <a class="btn btn-primary" href="{{ url_for('add_race') }}">Add Race</a>
+              </div>
+              <br>
+              <div class="text-left">
+                <a class="btn btn-primary" href="{{ url_for('add_candidates') }}">Add Candidates</a>
+              </div>
+              <br>
+              {% if race_set and candidates_made %}
+                <div class="text-center">
+                  <p>
+                    {{ form.submit_election(type="submit", class="btn btn-primary")}}
+                  </p>
+                </div>
+              {% endif %}
+            {% endif %}
+          {% with messages = get_flashed_messages() %}
+            {% if messages %}
+              <div class="text-danger">
+                  {{ messages[0] }}
+              </div>
+            {% endif %}
+          {% endwith %}
+        </form>
+        <br>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

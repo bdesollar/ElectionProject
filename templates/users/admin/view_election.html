@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+<title>{% block title %}View Election{% endblock %}</title>
+
+{% block content %}
+<h1 class="text-center pb-5 pt-5">Election</h1>
+<div class="container my-3 pb-5 pt-20">
+    <div class="row align-items-center justify-content-center">
+      <div class="col-md-4">
+        <form action="" method="post" role="form">
+          {{ form.csrf }}
+          <div class="form-group">
+            <label for="text">Election Name: </label>
+            <label for="{{ election.name }}">{{ election.name }}</label>
+            <br>
+            <label for="text">Electoral Constituency: </label>
+            <label for="{{ election.electoral_constituency }}">{{ election.electoral_constituency }}</label>
+            <br>
+            <label for="text">Electoral Date: </label>
+            <label for="{{ election.election_date }}">{{ election.election_date }}</label>
+            <br>
+            <label for="text">Select Race to View Race Details</label>
+            <select name="Races" method="GET" action="/">
+              <option value="{{Races[0].name}}" selected>{{Races[0].name}}</option>
+                {% for race in Races[1:] %}
+                  <option value="{{race.name}}">{{race.name}}</option>
+                {% endfor %}
+            </select>
+            <br>
+            {% if race_selected %}
+              <label for="text">Race Terms: </label>
+              <label for="{{ race.term }}">{{ race.term }}</label>
+              <br>
+              <label for="text">Precincts: </label>
+              <label for="{{ race.precinct }}">{{ race.precinct }}</label>
+              <br>
+              <label for="text">Race Candidates: </label>
+              <br>
+              {% for candidate in candidates %}
+                <label for="{{ candidate.full_name }}">Name: {{ candidate.full_name }}</label>
+                <br>
+                <label for="{{ candidate.party }}">Party: {{ candidate.party }}</label>
+                <br>
+                <label for="{{ candidate.position }}">Position: {{ candidate.position }}</label>
+                <br>
+              {% endfor %}
+              <br>
+            {% endif %}
+          </div>
+          <div class="text-center">
+            <p>
+              {{ form.submit(type="submit", class="btn btn-primary")}}
+            </p>
+          </div>
+        </form>
+        <br>
+      </div>
+    </div>
+</div>
+{% endblock %}

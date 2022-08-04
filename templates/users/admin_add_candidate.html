@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+
+<title>{% block title %}Administrator Add Candidate{% endblock %}</title>
+
+{% block content %}
+<h1 class="text-center pb-5 pt-5">Add Candidates to System</h1>
+<div class="container my-3 pb-5 pt-5">
+  <div class=container><br>
+    <div class="row align-items-center justify-content-center">
+      <div class="col-md-4">
+        <form action="" method="post" role="form">
+          {{ form.csrf }}
+          <div class="form-group">
+            <label for="name">{{ form.name.label }}</label>
+            {{ form.name(type="text" , class="form-control" , id="name",placeholder="Full Name")}}
+            <br>
+            <div>
+              {% for error in form.name.errors %}
+              <p>{{ error }}</p>
+              {% endfor %}
+            </div>
+            <label for="party">{{ form.party.label }}</label>
+            {{ form.party(type="party", class="form-control", id="party",placeholder="Enter Candidate Party") }}
+            <br>
+            <div>
+              {% for error in form.party.errors %}
+              <p>{{ error }}</p>
+              {% endfor %}
+            </div>
+            <label for="position">{{ form.position.label }}</label>
+            {{ form.position(type="position", class="form-control", id="position",
+            placeholder="Enter Candidate Position") }}
+            <br>
+            <div>
+              {% for error in form.position.errors %}
+              <p>{{ error }}</p>
+              {% endfor %}
+            </div>
+            <label for="statement">{{ form.statement.label }}</label>
+            {{ form.statement(type="position", class="form-control", id="statement",
+            placeholder="Enter Statement") }}
+            <br>
+            <div>
+              {% for error in form.statement.errors %}
+              <p>{{ error }}</p>
+              {% endfor %}
+            </div>
+            <label for="text">Race</label>
+            <select name="Races" method="GET" action="/">
+              <option value="{{Races[0]}}" selected>{{Races[0]}}</option>
+                {% for race in Races[1:] %}
+                  <option value="{{race}}">{{race}}</option>
+                {% endfor %}
+            </select>
+          </div>
+          <br>
+          <div class="text-center">
+            <p>
+              {{ form.submit(type="submit", class="btn btn-primary")}}
+            </p>
+          </div>
+        </form>
+        <br>
+      </div>
+      {% with messages = get_flashed_messages() %}
+          {% if messages %}
+              <div class="text-danger">
+                  {{ messages[0] }}
+              </div>
+          {% endif %}
+      {% endwith %}
+    </div>
+  </div>
+</div>
+{% endblock %}

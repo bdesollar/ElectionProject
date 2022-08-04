@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+<title>{% block title %}Manage{% endblock %}</title>
+
+{% block content %}
+<h1 class="text-center pb-5 pt-5">Search Voters</h1>
+
+<div class="container my-3 pb-5 pt-5">
+    <div class="container my-3 pb-5 pt-5">
+        <table>
+            <caption>Voters</caption>
+            <thead>
+                <tr class="text-secondary">
+                    <th id="voter">Voter ID</th>
+                    <th id="name">Name</th>
+                    <th id="email">Email</th>
+                    <th id="status">Status</th>
+                    <th id="actions">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for voter in voters %}
+                <tr>
+                    <td>{{ voter.voter_id }}</td>
+                    <td>{{ voter.name }}</td>
+                    <td>{{ voter.email }}</td>
+                    {% if voter.approved %}
+                    <td>Approved</td>
+                    {% elif voter.denied%}
+                    <td>Denied</td>
+                    {% else %}
+                    <td>Waiting for approval</td>
+                    {% endif %}
+                    <td><a href="{{ url_for('approve_voter' , id=voter.id) }}" class="btn btn-primary">Approve</a>
+                        <a href="{{ url_for('deny_voter' , id=voter.id) }}" class="btn btn-primary">Deny</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

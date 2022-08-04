@@ -1,0 +1,132 @@
+{% extends "base.html" %}
+
+<title>{% block title %}Voter Registration{% endblock %}</title>
+
+{% block content %}
+<h1 class="text-center pb-5 pt-5">Voter Registration</h1>
+<div class="container my-3 pb-5 pt-5">
+  <h3 class="text-center">Create New Account</h3>
+  <p class="text-center text-primary py-5">Please fill out the registration form to get started.
+  </p>
+  <div class=container"><br>
+    <div class="row align-items-center justify-content-center">
+      <div class="col-md-4">
+      {% with messages = get_flashed_messages() %}
+          {% if messages %}
+              <div class="text-danger">
+                  {{ messages[0] }}
+              </div>
+          {% endif %}
+      {% endwith %}
+        <form action="" method="post" role="form">
+          {{ form.csrf }}
+          <div class="form-group">
+            <label for="name">{{ form.name.label }}</label>
+            {{ form.name(type="text", class="form-control", id="name", placeholder="Name") }}
+            <br>
+            <div>
+              {% for error in form.name.errors %}
+              <p>{{ error }}</p>
+              {% endfor %}
+            </div>
+            <label for="email">{{ form.email.label }}</label>
+            {{ form.email(type="email", class="form-control", id="email",placeholder="Enter your email address.") }}
+            <br>
+            <div>
+              {% for error in form.email.errors %}
+              <p>{{ error }}</p>
+              {% endfor %}
+            </div>
+           <label for="age">{{ form.age.label }}</label>
+            {{ form.age(placeholder="Your Age" , type="text" , class="form-control" , id="age") }}
+            <br>
+            <div>
+              {% for error in form.age.errors %}
+              <p>{{ error }}</p>
+              {% endfor %}
+            </div>
+           <label for="phone_number">{{ form.phone_number.label }}</label>
+            {{ form.phone_number(placeholder="Primary Phone Number" , type="text" , class="form-control" , id="phone") }}
+            <br>
+            <div>
+              {% for error in form.phone_number.errors %}
+              <p>{{ error }}</p>
+              {% endfor %}
+            </div>
+           <label for="address">{{ form.address.label }}</label>
+            {{ form.address(placeholder="Your residential Address" , type="text" , class="form-control" , id="address") }}
+            <br>
+            <div>
+              {% for error in form.address.errors %}
+              <p>{{ error }}</p>
+              {% endfor %}
+            </div>
+           <label for="city">{{ form.city.label }}</label>
+            {{ form.city(placeholder="City" , type="text" , class="form-control" , id="city") }}
+            <br>
+            <div>
+              {% for error in form.city.errors %}
+              <p>{{ error }}</p>
+              {% endfor %}
+            </div>
+           <label for="state">{{ form.state.label }}</label>
+            {{ form.state(placeholder="State" , type="text" , class="form-control" , id="state") }}
+            <br>
+            <div>
+              {% for error in form.state.errors %}
+              <p>{{ error }}</p>
+              {% endfor %}
+            </div>
+           <label for="zipcode">{{ form.zipcode.label }}</label>
+            {{ form.zipcode(placeholder="Zip Code" , type="text" , class="form-control" , id="zipcode") }}
+            <br>
+            <div>
+              {% for error in form.zipcode.errors %}
+              <p>{{ error }}</p>
+              {% endfor %}
+            </div>
+              <label for="zipcode_plus4">{{ form.zipcode_plus4.label }}</label>
+            {{ form.zipcode_plus4(placeholder="Plus 4 Zip" , type="text" , class="form-control" , id="zipcode_plus4") }}
+            <br>
+            <div>
+              {% for error in form.zipcode_plus4.errors %}
+              <p>{{ error }}</p>
+              {% endfor %}
+            </div>
+            <label for="password">{{ form.password1.label }}</label>
+            {{ form.password1(type="password", class="form-control", id="password1",
+            placeholder="Enter your password") }}
+            <br>
+            <div>
+              {% for error in form.password1.errors %}
+              <p>{{ error }}</p>
+              {% endfor %}
+            </div>
+            <label for="password">{{ form.password2.label }}</label>
+            {{ form.password2(type="password", class="form-control", id="password2",
+            placeholder="Password Confirmation") }}
+            <br>
+            <div>
+              {% for error in form.password2.errors %}
+              <p>{{ error }}</p>
+              {% endfor %}
+            </div>
+            <label for="identification">{{ form.identification.label }}</label>
+            {{ form.identification(type="text", id="identification") }}
+            {% for error in form.identification.errors %}
+            <p>{{ error }}</p>
+            {% endfor %}
+          </div>
+          <br>
+          <div class="text-center">
+            <p>
+              {{ form.submit(type="submit", class="btn btn-primary")}}
+            </p>
+          </div>
+        </form>
+        <br>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
