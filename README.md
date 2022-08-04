@@ -52,6 +52,7 @@ This project was only possible due to the contributions of my fellow groupmates:
 - Steve - Front-End design and helped with the database
 - Myself - Full-stack for the project
 
+(Note: Not many commits due to being copied over from my local files)
 
 ## License
 
